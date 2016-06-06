@@ -1,0 +1,893 @@
+Program VersionFinal;
+uses crt;
+const
+max=16;
+type
+Dialogo=array[1..5] of string;
+arre=array[1..max] of char;
+posicion=array[0..9] of char;
+reales=real;
+
+Var
+Opcion,volver:Char;
+text:Dialogo;
+i,j,t:integer;
+num:arre=('A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P');
+tecla:char;
+pos:posicion=('0','1','2','3','4','5','6','7','8','9');
+V1,V2,V3,V4,V5,V6,V7,V8,V9,V0,VT,Comple:INTEGER;
+w1,w2,w3,w4,w5,w6,w7,w8,w9,w0:integer;
+
+Procedure Cargar;
+BEGIN
+textbackground(white);
+clrscr;
+cursoroff;
+text[1]:= 'Cargando el juego';
+text[2]:= 'Voltendo las cartas';
+text[3]:= 'Memorizando los lugares';
+text[4]:= 'Ubicando los pares';
+text[5]:= 'Iniciando el reloj';
+	textcolor(lightblue);
+	gotoxy (27,8);
+	writeln('|');
+	gotoxy (52,8);
+	writeln('|');
+	delay(1000);
+i:=28;
+Repeat
+
+	delay(750);
+	gotoxy(19,11);
+	clreol;
+	textbackground(lightcyan);
+	gotoxy(i,8);
+	writeln('  ');
+	i:=i+2;
+
+	if (i mod 2 = 0) then
+		randomize;
+		j:=random(5)+1;
+		gotoxy(29,11);
+		textbackground(white);
+		textcolor(lightblue);
+		writeln(text[j]);
+		
+	
+Until(i=52); 
+
+clrscr;
+textbackground(lightcyan);
+clrscr;
+textcolor(white);
+gotoxy(5,10); 
+writeln;
+gotoxy(10,9);
+writeln('###  ###  ###  #   #  #     #  ###  #   #  ###   ###    ###');
+gotoxy(10,10);
+writeln('#  #  #   #    ##  #  #     #  #    ##  #   #    #  #  #   #');
+gotoxy(10,11);
+writeln('###   #   ###  # # #   #   #   ###  # # #   #    #  #  #   #'); 
+gotoxy(10,12);
+writeln('#  #  #   #    #  ##    # #    #    #  ##   #    #  #  #   #');
+gotoxy(10,13); 
+writeln('###  ###  ###  #   #     #     ###  #   #  ###   ###    ###' );
+delay(2000);
+END;
+
+Procedure Juego;
+begin
+cursoroff;
+highvideo;
+textbackground(LightCyan);
+clrscr;
+
+gotoxy(20,2);
+textcolor(lightgreen);
+writeln('MEMORICE');
+gotoxy(28,2);
+textcolor(white);
+writeln(' cada una de las posiciones ');
+delay(3000);
+textcolor(yellow);
+gotoxy(18,6);
+writeln('+-------------------------------------+');
+gotoxy(18,7);
+writeln('|   ',num[1],'    |    ',num[8] ,'    |    ',num[12], '    |    ',num[6],'   |');
+gotoxy(18,9);
+writeln('|   ',num[11],'    |    ',num[13],'    |    ',num[5], '    |    ',num[2],'   |');
+gotoxy(18,11);
+writeln('|   ',num[3],'    |    ',num[4],'    |    ',num[7],'    |    ',num[10],'   |');
+gotoxy(18,13);
+writeln('|   ',num[15],'    |    ',num[14],'    |    ',num[9],'    |    ',num[16],'   |');
+gotoxy(18,14);
+writeln('+-------------------------------------+');
+gotoxy(18,8);
+writeln('|--------+---------+---------+--------|');
+gotoxy(18,10);
+writeln('|--------+---------+---------+--------|');
+gotoxy(18,12);
+writeln('|--------+---------+---------+--------|');
+
+t:=20;
+repeat
+cursoroff;
+textcolor(white);
+gotoxy(25,16);
+writeln('Tiempo Restante:');
+gotoxy(48,16);
+textcolor(lightred);
+writeln(t);
+gotoxy(43,16);
+delay(500);
+ClrEol;
+t:=t-1;
+sound(432);
+delay(500);
+nosound
+until(t=0);
+
+clrscr;
+gotoxy(20,2);
+textcolor(lightgreen);
+writeln('COMPLETE');
+gotoxy(28,2);
+textcolor(white);
+writeln(' segun el cuadro anterior');
+textcolor(yellow);
+gotoxy(18,6);
+writeln('+-------------------------------------+');
+gotoxy(18,7);
+writeln('|   ',num[1],'    |    ',pos[0],'    |    ',num[12], '    |    ',pos[1],'   |');
+gotoxy(18,9);
+writeln('|   ',pos[2],'    |    ',pos[3],'    |    ',pos[4], '    |    ',num[2],'   |');
+gotoxy(18,11);
+writeln('|   ',pos[5],'    |    ',num[4],'    |    ',pos[6],'    |    ',pos[7],'   |');
+gotoxy(18,13);
+writeln('|   ',pos[8],'    |    ',num[14],'    |    ',num[9],'    |    ',pos[9],'   |');
+gotoxy(18,14);
+writeln('+-------------------------------------+');
+gotoxy(18,8);
+writeln('|--------+---------+---------+--------|');
+gotoxy(18,10);
+writeln('|--------+---------+---------+--------|');
+gotoxy(18,12);
+writeln('|--------+---------+---------+--------|');
+
+V0:=0;
+V1:=0;
+V2:=0;
+V3:=0;
+V4:=0;
+V5:=0;
+V6:=0;
+V7:=0;
+V8:=0;
+V9:=0;
+VT:=0;
+Comple:=0; 
+w0:=0;
+w1:=0;
+w2:=0;
+w3:=0;
+w4:=0;
+w5:=0;
+w6:=0;
+w7:=0;
+w8:=0;
+w9:=0;
+tecla:=' ';
+	
+begin
+	Repeat
+	textcolor(white);
+	gotoxy(20,25);
+	write('Para salir introduce el simbolo "');  
+	textcolor(lightred);
+	write(' * ');
+	textcolor(white);
+	write('"');
+			
+		if VT=0 then
+		begin
+			textcolor(lightred);
+			gotoxy(65,7);
+			writeln('VIDAS');
+			gotoxy(61,9);
+			writeln('<3 <3 <3 <3');
+		end
+		else if VT=1 then
+		begin
+		gotoxy(60,9);
+			clreol;
+			textcolor(lightred);
+			gotoxy(63,9);
+			writeln('<3 <3 <3');
+		end
+		else if VT=2 then
+		begin
+			gotoxy(60,9);
+			clreol;
+			textcolor(lightred);
+			gotoxy(65,9);
+			writeln('<3 <3');
+		end
+		else if VT=3 then
+		begin
+				gotoxy(60,9);
+			clreol;
+			textcolor(lightred);
+			gotoxy(67,9);
+			writeln('<3');
+		end;
+		gotoxy(1,5);
+		clreol;
+  		gotoxy(17,16);
+		clreol;
+		gotoxy(15,18);
+		clreol;
+		gotoxy(25,4);
+		clreol;
+		delay(200);
+		
+  textcolor(white);
+  gotoxy(23,16);
+	writeln('POSICION a jugar: ');
+	textcolor(lightred);
+	gotoxy(47,16);
+	readln(tecla);
+	textcolor(yellow);
+
+	CASE tecla OF 
+	'0':begin
+	If (w0>=1) then
+		BEGIN
+		gotoxy(27,4);
+		WRITELN('YA SE JUGO EN ESTA POSICION');
+		READLN;
+		END
+	ELSE 
+	begin
+		textcolor(white);
+		gotoxy(23,18);
+		writeln('Introduzca la LETRA');
+		gotoxy(47,18);
+		textcolor(lightred);
+		readln(tecla);
+		tecla:=upcase (tecla);
+			if (tecla=num[8])then
+				BEGIN
+				textcolor(lightgreen);
+				gotoxy(30,4);
+				writeln('ES CORRECTO :D');
+				gotoxy(32,7);
+				writeln(num[8]);
+				readln;
+				w0:=w0+1;
+				END
+			else if (tecla<>num[8])then
+				BEGIN
+				gotoxy(30,4);
+				writeln('ES INCORRECTO :-(' );
+				readln;
+				v0:=v0+1;	
+				end;
+	end;
+	end;
+		
+	'1':begin
+	If (w1>=1) then
+		BEGIN
+		gotoxy(27,4);
+		WRITELN('YA SE JUGO EN ESTA POSICION');
+		READLN;
+		END
+	ELSE 
+	begin
+		textcolor(white);
+		gotoxy(20,18);
+		writeln('Introduzca la LETRA');
+		gotoxy(47,18);
+		textcolor(lightred);
+		readln(tecla);
+		tecla:=upcase (tecla);
+			if (tecla=num[6])then
+				BEGIN
+				textcolor(lightgreen);
+				gotoxy(30,4);
+				writeln('ES CORRECTO :D');
+				gotoxy(52,7);
+				writeln(num[6]);
+				readln;
+				w1:=w1+1;
+				END
+			else if (tecla<>num[6])then
+				BEGIN
+				gotoxy(30,4);
+				writeln('ES INCORRECTO :-(' );
+				readln;
+				v1:=v1+1;	
+				end;
+	end;
+	end;
+	
+	'2':begin
+	If (w2>=1) then
+		BEGIN
+		gotoxy(27,4);
+		WRITELN('YA SE JUGO EN ESTA POSICION');
+		READLN;
+		END
+	ELSE 
+	begin
+		textcolor(white);
+		gotoxy(20,18);
+		writeln('Introduzca la LETRA');
+		gotoxy(47,18);
+		textcolor(lightred);
+		readln(tecla);
+		tecla:=upcase (tecla);
+			if (tecla=num[11])then
+				BEGIN
+				textcolor(lightgreen);
+				gotoxy(30,4);
+				writeln('ES CORRECTO :D');
+				gotoxy(22,9);
+				writeln(num[11]);
+				readln;
+				w2:=w2+1;
+				textcolor(0);
+				END
+			else if (tecla<>num[11])then
+				BEGIN
+				gotoxy(30,4);
+				writeln('ES INCORRECTO :-(' );
+				readln;
+				v2:=v2+1;	
+				end;
+	end;
+	end;
+		
+	'3':begin
+	If (w3>=1) then
+		BEGIN
+		gotoxy(27,4);
+		WRITELN('YA SE JUGO EN ESTA POSICION');
+		READLN;
+		END
+	ELSE 
+	begin
+		textcolor(white);
+		gotoxy(20,18);
+		writeln('Introduzca la LETRA');
+		gotoxy(47,18);
+		textcolor(lightred);
+		readln(tecla);
+		tecla:=upcase (tecla);
+			if (tecla=num[13])then
+				BEGIN
+				textcolor(lightgreen);
+				gotoxy(30,4);
+				writeln('ES CORRECTO :D');
+				gotoxy(32,9);
+				writeln(num[13]);
+				readln;
+				w3:=w3+1;
+				textcolor(0);
+				END
+			else if (tecla<>num[13])then
+				BEGIN
+				gotoxy(30,4);
+				writeln('ES INCORRECTO :-(' );
+				readln;
+				v3:=v3+1;	
+				end;
+	end;
+	end;
+	
+	'4':begin
+	If (w4>=1) then
+		BEGIN
+		gotoxy(27,4);
+		WRITELN('YA SE JUGO EN ESTA POSICION');
+		READLN;
+		END
+	ELSE 
+	begin
+		textcolor(white);
+		gotoxy(20,18);
+		writeln('Introduzca la LETRA');
+		gotoxy(47,18);
+		textcolor(lightred);
+		readln(tecla);
+		tecla:=upcase (tecla);
+			if (tecla=num[5])then
+				BEGIN
+				textcolor(lightgreen);
+				gotoxy(30,4);
+				writeln('ES CORRECTO :D');
+				gotoxy(42,9);
+				writeln(num[5]);
+				readln;
+				w4:=w4+1;
+				textcolor(0);
+				END
+			else if (tecla<>num[5])then
+				BEGIN
+				gotoxy(30,4);
+				writeln('ES INCORRECTO :-(' );
+				readln;
+				v4:=v4+1;	
+				end;
+	end;
+	end;
+	
+	'5':begin
+	If (w5>=1) then
+		BEGIN
+		gotoxy(27,4);
+		WRITELN('YA SE JUGO EN ESTA POSICION');
+		READLN;
+		END
+	ELSE 
+	begin
+		textcolor(white);
+		gotoxy(20,18);
+		writeln('Introduzca la LETRA');
+		gotoxy(47,18);
+		textcolor(lightred);
+		readln(tecla);
+		tecla:=upcase (tecla);
+			if (tecla=num[3])then
+				BEGIN
+				textcolor(lightgreen);
+				gotoxy(30,4);
+				writeln('ES CORRECTO :D');
+				gotoxy(22,11);
+				writeln(num[3]);
+				readln;
+				w5:=w5+1;
+				textcolor(0);
+				END
+			else if (tecla<>num[3])then
+				BEGIN
+				gotoxy(30,4);
+				writeln('ES INCORRECTO :-(' );
+				readln;
+				v5:=v5+1;	
+				end;
+	end;
+	end;	
+									
+	'6':begin
+	If (w6>=1) then
+		BEGIN
+		gotoxy(27,4);
+		WRITELN('YA SE JUGO EN ESTA POSICION');
+		READLN;
+		END
+	ELSE 
+	begin
+		textcolor(white);
+		gotoxy(20,18);
+		writeln('Introduzca la LETRA');
+		gotoxy(47,18);
+		textcolor(lightred);
+		readln(tecla);
+		tecla:=upcase (tecla);
+			if (tecla=num[7])then
+				BEGIN
+				textcolor(lightgreen);
+				gotoxy(30,4);
+				writeln('ES CORRECTO :D');
+				gotoxy(42,11);
+				writeln(num[7]);
+				readln;
+				w6:=w6+1;
+				textcolor(0);
+				END
+			else if (tecla<>num[7])then
+				BEGIN
+				gotoxy(30,4);
+				writeln('ES INCORRECTO :-(' );
+				readln;
+				v6:=v6+1;	
+				end;
+	end;
+	end;
+	
+	'7':begin
+	If (w7>=1) then
+		BEGIN
+		gotoxy(27,4);
+		WRITELN('YA SE JUGO EN ESTA POSICION');
+		READLN;
+		END
+	ELSE 
+	begin
+		textcolor(white);
+		gotoxy(20,18);
+		writeln('Introduzca la LETRA');
+		gotoxy(47,18);
+		textcolor(lightred);
+		readln(tecla);
+		tecla:=upcase (tecla);
+			if (tecla=num[10])then
+				BEGIN
+				textcolor(lightgreen);
+				gotoxy(30,4);
+				writeln('ES CORRECTO :D');
+				gotoxy(52,11);
+				writeln(num[10]);
+				readln;
+				w7:=w7+1;
+				textcolor(0);
+				END
+			else if (tecla<>num[10])then
+				BEGIN
+				gotoxy(30,4);
+				writeln('ES INCORRECTO :-(' );
+				readln;
+				v7:=v7+1;	
+				end;
+	end;
+	end;
+	
+	'8':begin
+	If (w8>=1) then
+		BEGIN
+		gotoxy(27,4);
+		WRITELN('YA SE JUGO EN ESTA POSICION');
+		READLN;
+		END
+	ELSE 
+	begin
+		textcolor(white);
+		gotoxy(20,18);
+		writeln('Introduzca la LETRA');
+		gotoxy(47,18);
+		textcolor(lightred);
+		readln(tecla);
+		tecla:=upcase (tecla);
+			if (tecla=num[15])then
+				BEGIN
+				textcolor(lightgreen);
+				gotoxy(30,4);
+				writeln('ES CORRECTO :D');
+				gotoxy(22,13);
+				writeln(num[15]);
+				readln;
+				w8:=w8+1;
+				textcolor(0);
+				END
+			else if (tecla<>num[15])then
+				BEGIN
+				gotoxy(30,4);
+				writeln('ES INCORRECTO :-(' );
+				readln;
+				v8:=v8+1;	
+				end;
+	end;
+	end;
+	
+	'9':begin
+	If (w9>=1) then
+		BEGIN
+		gotoxy(27,4);
+		WRITELN('YA SE JUGO EN ESTA POSICION');
+		READLN;
+		END
+	ELSE 
+	begin
+	textcolor(white);
+		gotoxy(20,18);
+		writeln('Introduzca la LETRA');
+		gotoxy(47,18);
+		textcolor(lightred);
+		readln(tecla);
+		tecla:=upcase (tecla);
+			if (tecla=num[16])then
+				BEGIN
+				textcolor(lightgreen);
+				gotoxy(35,4);
+				writeln('ES CORRECTO :D');
+				gotoxy(52,13);
+				writeln(num[16]);
+				readln;
+				w9:=w9+1;
+				textcolor(0);
+				END
+			else if (tecla<>num[16])then
+				BEGIN
+				gotoxy(30,4);
+				writeln('ES INCORRECTO :-(' );
+				readln;
+				v9:=v9+1;	
+				end
+	end;
+	end;
+end;
+	  	VT:=v0+v1+v2+v3+v4+v5+v6+v7+v8+v9;
+		Comple:=w0+w1+w2+w3+w4+w5+w6+w7+w8+w9;	
+UNTIL((VT=4) or (Comple=10) or (tecla='*'));
+
+clrscr;
+If Comple=10 then	
+begin
+highvideo;
+textbackground(lightblue);
+clrscr;
+textcolor(yellow);
+writeln('                                                              \   |   / ');
+writeln('                                                                #####   ');
+writeln('                                                             - ####### -');
+writeln('                                                               #######  ');
+writeln('                                                             - ####### -');
+writeln('                                                                #####   ');
+writeln('                                                              /   |   \  ');
+textcolor(white); 
+gotoxy(1,7);
+writeln('             ___________________________##    ##    ##     ');
+writeln('             ___________________________##    ##    ##     ');
+writeln('             ____________________##______#    ##    ##     ');
+writeln('             _____________________####    ####   #### ## ');
+writeln('             ________________##      ##                 ## ');
+writeln('             _________________##                        ## ');
+writeln('                            ____###           ###        ##');
+textcolor(lightred);
+write('              HAS GANADO!!!');
+textcolor(white);
+writeln('  ____##     ###    ##      ##  ');
+writeln('             _____________________##     ##            ##  ');
+writeln('             _____________________##                   ##  ');
+writeln('             ________##___##______##            ##     ##  ');
+writeln('             _________##__##______##     ##    ##     ##   ');
+writeln('             __________##_##_______##      #####     ##    ');
+writeln('             _________#######_______##              ##     ');
+writeln('             ________##########_______##############--##   ');
+writeln('             ________##########___________##-----------##  ');
+writeln('             __________#####################------------## ');
+writeln('             _____________________________##-------------##');
+
+sound(261);
+delay(300);
+sound(261);
+delay(300);
+sound(261);
+delay(300);
+sound(293);
+delay(300);
+sound(261);
+delay(329);
+sound(261);
+delay(300);
+sound(392);
+delay(300);
+sound(261);
+delay(300);
+sound(261);
+delay(300);
+sound(261);
+delay(300);
+sound(293);
+delay(300);
+sound(261);
+delay(329);
+sound(261);
+delay(300);
+sound(440);
+delay(300);
+sound(392);
+delay(400);
+nosound;
+readln;
+end
+
+else if VT=4 then
+begin
+highvideo;
+textbackground(lightblue);
+clrscr;
+textcolor(white); 
+gotoxy(1,5);
+writeln(' /    /     /________ / ____ / _________##    ##    ##     /      /      ');
+writeln('             ___ /______________________##    ##    ##        /        / ');
+writeln('   /    /    /_________ / _______##______#    ##    ##   /         /     ');
+writeln('     /      _____ / _____________####    ####   #### ##       /         /');
+writeln('/        /   ________ / _____##      ##                 ##         /     ');
+writeln('     /       _________________##                        ##      /    /   ');
+writeln('                            ____###      ###    ###      ##              ');
+textcolor(lightred);
+write('              PERDISTE!!!');
+textcolor(white);
+writeln('    ____##      ##     ##     ##  ');
+writeln('             _____________________##      o             ## ');
+writeln('             _____________________##     o              ## ');
+writeln('             _____________________##                   ##  ');
+writeln('             _____________________##       _____      ##   ');
+writeln('             ______________________##     /     \     ##   ');
+writeln('             _______________________##              ##     ');
+writeln('             _________________________##############--##   ');
+writeln('             _____________________________##-----------##  ');
+writeln('             _____________________________##------------## ');
+writeln('             _____________________________##-------------##');
+sound(350);
+delay(350);
+nosound;
+delay(350);
+sound(350);
+delay(350);
+nosound;
+delay(350);
+sound(750);
+delay(2000);
+nosound;
+readln;
+end;
+end;
+end;
+
+Procedure ayuda;
+Begin
+clrscr;
+textbackground(3);
+textcolor(yellow);
+gotoxy(27,2);
+writeln(' ##   #   #  #  #  ###    ## ');
+gotoxy(27,3);
+writeln('#  #   # #   #  #  #  #  #  #');
+gotoxy(27,4);
+writeln('#--#    #    #  #  #  #  #--#');
+gotoxy(27,5);
+writeln('#  #    #    ####  ###   #  #');
+
+gotoxy(5,7);
+writeln(' COMO JUGAR?');
+textcolor(0);
+writeln('     SPEICHER, es un juego de memoria que consiste en llenar     ');
+writeln('  correctamentes las casillas, las cuales se muestra en pantalla.');
+writeln('   El jugador debe memorizar las ubicaciones de cada letra, para ');
+writeln('  ello tiene 20 segundos. Luego  de transcurrir ese tiempo la    ');
+writeln('  mayoria de las celdas seran borradas e iniciara el juego.      ');
+writeln;
+textcolor(yellow);
+write('   1).'); 
+textcolor(0);
+writeln(' El usuario indica la posicion donde quiere jugar del 1 al 9');
+textcolor(yellow);
+write('   2).');
+textcolor(0);
+writeln(' Introduce en el teclado la letra de la A a la P');
+textcolor(yellow);
+write('      2.1).'); 
+textcolor(0);
+writeln('Si la letra coincide con la posicion, la letra quedara en');
+writeln(' pantalla y se le informara al usuario que acerto');
+textcolor(yellow);
+write('      2.2).'); 
+textcolor(0);
+writeln('Si la letra en la posicion selecciona es incorrecta, se le');
+writeln(' indicara al usuario que es incorrecto');
+textcolor(yellow);
+write('   3).');
+textcolor(0);
+write('El usuario consta de 4 vidas ');
+textcolor(lightred);
+write('<3'); 
+textcolor(0);
+writeln('. Se disminuira una vida por error');
+textcolor(yellow);
+write('   4).');
+textcolor(0);
+writeln('El juego terminara cuando: se acaben las vidas, se complete');
+writeln(' correctamente el juego o cuando el usuario lo decida');
+writeln(' introduciendo el simbolo " * ".');
+writeln;
+write('               Presione '); 
+textcolor(lightred);
+write('ESC '); 
+textcolor(0);
+write('para volver al menu principal');
+
+	repeat
+		volver:=readkey;
+			if volver=#27 then
+				clrscr;
+	until(volver=#27);
+End;
+
+Procedure Creditos;
+Begin
+textbackground(black);
+clrscr;
+cursoroff;
+
+textcolor(lightgreen);
+clrscr;
+gotoxy(36,1);
+writeln('CREDITOS');
+gotoxy(25,3);
+writeln('UNEFA - LARA      Ing. Sistemas');
+gotoxy(30,7);
+textcolor(lightred);
+write('=>');
+textcolor(lightgreen);
+write(' Eliana Gallegos');
+gotoxy(30,9);
+textcolor(lightred);
+write('=>');
+textcolor(lightgreen);
+writeln(' Mariangel Perozo');
+gotoxy(30,11);
+textcolor(lightred);
+write('=>');
+textcolor(lightgreen);
+writeln(' Carlos Palma');
+gotoxy(30,13);
+textcolor(lightred);
+write('=>');
+textcolor(lightgreen);
+writeln(' Luis David Silva');
+gotoxy(26,20);
+writeln(' 3D02 IS   -   Programacion');
+delay(500);
+
+gotoxy(22,25);
+end;
+
+Procedure Menu;
+Begin
+clrscr;
+cursoroff;
+while (opcion <>'3') do
+begin
+textbackground(3);
+clrscr;
+textcolor(15);
+  writeln ('                   ##  ####  ###  ###  ###  #  #  ###  #### ');
+   writeln('                  #    #  #  #     #   #    #  #  #    #  # ');
+   writeln('                   #   ####  ###   #   #    ####  ###  #### ');
+   writeln('                    #  #     #     #   #    #  #  #    # #  ');
+   writeln('                  ##   #     ###  ###  ###  #  #  ###  #  # ');
+ //titulo 'SPEICHER' (Aleman, traducido a espaÃ±ol: Memoria)
+ 
+ textcolor(yellow);
+ gotoxy(14,10);
+ writeln('Seleccione una opcion:');
+ gotoxy(19,12);
+ writeln('OPCIONES');
+ gotoxy(20,15);
+ textcolor(yellow);
+ write('> 1 <');
+ textcolor(15);
+ write('   =>   Iniciar el Juego');
+ gotoxy(20,17);
+ textcolor(yellow);
+ write('> 2 <');
+ textcolor(15);
+ writeln('   =>   Ayuda');
+ gotoxy(20,19);
+ textcolor(yellow);
+ write('> 3 <');
+ textcolor(15);
+ writeln('   =>   Salir');
+ 
+	opcion:=readkey;
+	case opcion of
+		'1': begin
+				Juego;
+				delay(250);		
+			end;
+		'2':ayuda;
+		'3':Creditos;	
+			end;
+	end;
+end;
+
+//CP
+begin
+cursoroff;
+Cargar;
+Menu;
+creditos;
+end.
